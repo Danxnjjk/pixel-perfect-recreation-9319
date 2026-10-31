@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep financial rules as pure functions in src/domain, storage behind the FinanceRepository interface in src/data, and UI in components/routes — so the localStorage repository can be swapped for Electron + SQLite (offline, no external services).
