@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { monthFlow, summary } from "./finance";
-import type { FinanceData, Transaction } from "./types";
+import { monthFlow, summary } from "@/domain/finance";
+import type { FinanceData, Transaction } from "@/domain/types";
 
 const base = (tx: Transaction[], paid = false): FinanceData => ({
   accounts: [
