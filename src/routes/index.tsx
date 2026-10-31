@@ -63,7 +63,7 @@ function Dashboard() {
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <Panel title="Receitas x Despesas" className="lg:col-span-2">
           <div className="h-72">
-            <ResponsiveContainer>
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart data={flowSeries} barGap={6}>
                 <CartesianGrid vertical={false} stroke="var(--border)" />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} stroke="var(--muted-foreground)" fontSize={12} />
@@ -78,7 +78,7 @@ function Dashboard() {
 
         <Panel title="Despesas por categoria">
           <div className="h-44">
-            <ResponsiveContainer>
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={cats} dataKey="value" nameKey="name" innerRadius={50} outerRadius={78} paddingAngle={2} stroke="none">
                   {cats.map((c) => <Cell key={c.categoryId} fill={c.color} />)}
@@ -99,7 +99,7 @@ function Dashboard() {
 
         <Panel title="Evolução patrimonial" className="lg:col-span-3">
           <div className="h-72">
-            <ResponsiveContainer>
+            <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={evo}>
                 <defs>
                   <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1">
