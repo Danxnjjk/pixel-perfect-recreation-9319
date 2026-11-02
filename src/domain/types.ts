@@ -32,10 +32,10 @@ export interface Transaction {
   description: string;
   amount: number; // always positive; sign derived from type (ajuste may be negative)
   type: TransactionType;
-  categoryId?: string;
-  accountId?: string; // origin account
-  toAccountId?: string; // destination (transferencia / aporte / resgate)
-  notes?: string;
+  categoryId?: string | undefined;
+  accountId?: string | undefined; // origin account
+  toAccountId?: string | undefined; // destination (transferencia / aporte / resgate)
+  notes?: string | undefined;
 }
 
 export interface CreditCard {
@@ -55,7 +55,7 @@ export interface CardPurchase {
   amount: number; // per installment
   installment: number;
   totalInstallments: number;
-  categoryId?: string;
+  categoryId?: string | undefined;
   invoiceMonth: string; // yyyy-mm
   paid: boolean; // invoice paid (settles obligation only)
 }

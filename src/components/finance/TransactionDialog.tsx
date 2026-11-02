@@ -15,7 +15,7 @@ export function TransactionDialog({
   open: boolean;
   onOpenChange: (o: boolean) => void;
   data: FinanceData;
-  initial?: Transaction;
+  initial?: Transaction | undefined;
   onSave: (t: Transaction) => void;
 }) {
   const blank = (): Transaction => ({

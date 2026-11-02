@@ -16,7 +16,7 @@ describe("lançamentos", () => {
   it("cria, edita e exclui", () => {
     const added = upsertTransaction(d, { id: "b", date: "2026-10-06", description: "y", amount: 5, type: "receita" });
     expect(added.transactions).toHaveLength(2);
-    const edited = upsertTransaction(added, { ...added.transactions[0], amount: 99 });
+    const edited = upsertTransaction(added, { ...added.transactions[0]!, amount: 99 });
     expect(edited.transactions.find((t) => t.id === "a")?.amount).toBe(99);
     expect(deleteTransaction(edited, "a").transactions.map((t) => t.id)).toEqual(["b"]);
   });
