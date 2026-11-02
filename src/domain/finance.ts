@@ -8,7 +8,7 @@ export function accountBalances(data: FinanceData): Record<string, number> {
   const bal: Record<string, number> = {};
   for (const a of data.accounts) bal[a.id] = a.initialBalance;
   const add = (id: string | undefined, v: number) => {
-    if (id && id in bal) bal[id] += v;
+    if (id && id in bal) bal[id] = (bal[id] ?? 0) + v;
   };
   for (const t of data.transactions) {
     switch (t.type) {
@@ -44,8 +44,8 @@ export function summary(data: FinanceData) {
   let banco = 0;
   let investido = 0;
   for (const a of data.accounts) {
-    if (a.kind === "bancaria") banco += bal[a.id];
-    else investido += bal[a.id];
+    if (a.kind === "bancaria") banco += bal[a.id] ?? 0;
+    else investido += bal[a.id] ?? 0;
   }
   const obrigacoes = data.cardPurchases.filter((p) => !p.paid).reduce((s, p) => s + p.amount, 0);
   return { banco, investido, obrigacoes, patrimonio: banco + investido - obrigacoes, balances: bal };
@@ -67,7 +67,7 @@ export function monthFlow(data: FinanceData, month: string) {
 }
 
 export function lastMonths(ref: string, n: number): string[] {
-  const [y, m] = ref.split("-").map(Number);
+  const [y = 0, m = 1] = ref.split("-").map(Number);
   const out: string[] = [];
   for (let i = n - 1; i >= 0; i--) {
     const d = new Date(y, m - 1 - i, 1);
