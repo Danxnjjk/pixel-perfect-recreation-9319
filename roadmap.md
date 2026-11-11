@@ -14,7 +14,7 @@
       que saiu do `package.json`) e criar `src/main.tsx` (a página estava em branco).
 
 ## Pendências que eu vi
-- [ ] `src/routes/__root.tsx` do repositório ainda é a versão antiga (com `<html>` dentro da
-      página) — precisa ser trocado pela versão dele.
+- [x] `src/routes/__root.tsx` do repositório ainda é a versão antiga (com `<html>` dentro da
+      página) — tirei essa parte para a prévia abrir sem erro; a versão dele vai substituir.
 - [ ] Decidir o que fazer com `dist` (foi enviado, mas está na lista de ignorados) e com o
       `package-lock.json` que ficou ao lado do `bun.lock`.
