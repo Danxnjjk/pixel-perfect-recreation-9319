@@ -1,12 +1,10 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Regras para quem desenvolve este projeto
 
-- Keep financial rules as pure functions in src/domain, storage behind the FinanceRepository interface in src/data, and UI in components/routes — so the localStorage repository can be swapped for Electron + SQLite (offline, no external services).
+- Separar sempre: regras financeiras como funções puras em `src/domain`, armazenamento atrás da
+  interface `FinanceRepository` em `src/data`, e tela em `src/components` e `src/routes`. Assim o
+  armazenamento atual (navegador) poderá ser trocado por Electron + SQLite sem mexer nas telas.
+- Funcionamento 100% offline; não usar serviços externos nem pagos.
+- Dinheiro em centavos inteiros; nunca usar números decimais para valores.
+- Evitar duplicidade: compra no cartão é despesa uma única vez; pagamento de fatura não é despesa.
+- Não criar funcionalidades falsas; manter o design atual quando adequado.
+- Avançar em etapas pequenas, registrando cada uma em `docs/etapas.md`.

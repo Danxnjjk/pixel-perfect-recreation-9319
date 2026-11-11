@@ -1,24 +1,47 @@
-# Pixel Perfect Recreation
+# Patrimônio — controle financeiro pessoal
 
-Implement exactly the screenshot and nothing else
+Aplicativo de controle financeiro pessoal em português do Brasil, pensado para funcionar
+**totalmente offline** no Windows (futuramente com Electron + SQLite).
+A interface inicial foi criada com o Lovable; o desenvolvimento continua a partir daqui.
 
-This project was built with [Lovable](https://lovable.dev).
+## Como usar durante o desenvolvimento
 
-## Build with Lovable
+No terminal do VS Code, dentro da pasta do projeto (a que contém o `package.json`):
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/5868e331-a613-4df1-8d02-e040756aa7a4).
+| Comando | Para que serve |
+|---|---|
+| `npm.cmd install` | Instala as bibliotecas (só na primeira vez ou quando o `package.json` mudar) |
+| `npm.cmd run dev` | Abre o app em `http://localhost:5173/` para testar |
+| `npm.cmd test` | Roda os testes das regras financeiras |
+| `npm.cmd run build` | Gera a versão final na pasta `dist` |
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Aplicativo Windows (Electron + SQLite)
 
-## Development
+Os dados do aplicativo Windows ficam em um **banco SQLite no computador**, sem internet (pasta `%APPDATA%\patrimonio`),
+com uma cópia de segurança automática por dia. No navegador os dados ficam no `localStorage` (temporário).
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+| Comando | Para que serve |
+|---|---|
+| `npm.cmd install --save-dev electron` | Instala o Electron (uma vez só) |
+| `npm.cmd run test:sqlite` | Testa o banco de dados SQLite sozinho |
+| `npm.cmd run electron:dev` | Abre o aplicativo Windows em modo de desenvolvimento |
+| `npm.cmd run electron:start` | Gera a tela final e abre o aplicativo como ele ficará instalado |
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Para levar os dados de teste do navegador para o aplicativo Windows: no navegador, **Dados e backup → Baixar backup**; no
+aplicativo, **Dados e backup → Escolher arquivo de backup**.
+
+## Organização do código
+
+- `src/domain/` — regras financeiras (cálculos), sem tela e sem armazenamento.
+- `src/data/` — armazenamento dos dados (navegador: localStorage; aplicativo Windows: SQLite, pela ponte do Electron).
+- `electron/` — janela do aplicativo Windows, ponte segura e banco SQLite (`sqlite-store.cjs`, com teste próprio).
+- `src/routes/` e `src/components/` — telas e componentes visuais.
+- `src/test/` — testes automáticos.
+- `docs/etapas.md` — diário de cada etapa do desenvolvimento.
+
+## Princípios do projeto
+
+- Sem serviços externos ou pagos (nada de Supabase, Firebase etc.); tudo local.
+- Valores em dinheiro em centavos inteiros.
+- Compra no cartão conta como despesa uma única vez; pagar a fatura não gera nova despesa.
+- Nada de funcionalidade falsa: o que aparece na tela precisa funcionar de verdade.
